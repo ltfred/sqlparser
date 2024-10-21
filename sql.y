@@ -165,9 +165,10 @@ func forceEOF(yylex interface{}) {
 // Type Tokens
 %token <bytes> BIT TINYINT SMALLINT MEDIUMINT INT INTEGER BIGINT INTNUM
 %token <bytes> SMALLSERIAL SERIAL BIGSERIAL
+%token <bytes> BOOL BOOLEAN
 %token <bytes> REAL DOUBLE FLOAT_TYPE DECIMAL NUMERIC
 %token <bytes> TIME TIMESTAMP DATETIME YEAR
-%token <bytes> CHAR VARCHAR BOOL CHARACTER VARBINARY NCHAR
+%token <bytes> CHAR VARCHAR CHARACTER VARBINARY NCHAR
 %token <bytes> TEXT TINYTEXT MEDIUMTEXT LONGTEXT
 %token <bytes> BLOB TINYBLOB MEDIUMBLOB LONGBLOB JSON ENUM
 %token <bytes> GEOMETRY POINT LINESTRING POLYGON GEOMETRYCOLLECTION MULTIPOINT MULTILINESTRING MULTIPOLYGON
@@ -191,7 +192,7 @@ func forceEOF(yylex interface{}) {
 %token <bytes> GROUP_CONCAT SEPARATOR
 
 // Match
-%token <bytes> MATCH AGAINST BOOLEAN LANGUAGE WITH QUERY EXPANSION
+%token <bytes> MATCH AGAINST LANGUAGE WITH QUERY EXPANSION
 
 // MySQL reserved words that are unused by this grammar will map to this token.
 %token <bytes> UNUSED
@@ -692,6 +693,14 @@ int_type:
     $$ = ColumnType{Type: string($1)}
   }
 | BIGSERIAL
+  {
+    $$ = ColumnType{Type: string($1)}
+  }
+| BOOL
+  {
+    $$ = ColumnType{Type: string($1)}
+  }
+| BOOLEAN
   {
     $$ = ColumnType{Type: string($1)}
   }
@@ -3044,7 +3053,6 @@ non_reserved_keyword:
 | BIGINT
 | BIT
 | BLOB
-| BOOL
 | CHAR
 | CHARACTER
 | CHARSET
@@ -3110,6 +3118,8 @@ non_reserved_keyword:
 | SMALLSERIAL
 | SERIAL
 | BIGSERIAL
+| BOOL
+| BOOLEAN
 | SPATIAL
 | START
 | STATUS
