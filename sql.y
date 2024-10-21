@@ -163,7 +163,8 @@ func forceEOF(yylex interface{}) {
 %token <bytes> BEGIN START TRANSACTION COMMIT ROLLBACK
 
 // Type Tokens
-%token <bytes> BIT TINYINT SMALLINT MEDIUMINT INT INTEGER BIGINT INTNUM SMALLSERIAL
+%token <bytes> BIT TINYINT SMALLINT MEDIUMINT INT INTEGER BIGINT INTNUM
+%token <bytes> SMALLSERIAL SERIAL BIGSERIAL
 %token <bytes> REAL DOUBLE FLOAT_TYPE DECIMAL NUMERIC
 %token <bytes> TIME TIMESTAMP DATETIME YEAR
 %token <bytes> CHAR VARCHAR BOOL CHARACTER VARBINARY NCHAR
@@ -679,6 +680,18 @@ int_type:
     $$ = ColumnType{Type: string($1)}
   }
 | SMALLINT
+  {
+    $$ = ColumnType{Type: string($1)}
+  }
+| SMALLSERIAL
+  {
+    $$ = ColumnType{Type: string($1)}
+  }
+| SERIAL
+  {
+    $$ = ColumnType{Type: string($1)}
+  }
+| BIGSERIAL
   {
     $$ = ColumnType{Type: string($1)}
   }
@@ -3094,6 +3107,9 @@ non_reserved_keyword:
 | SHARE
 | SIGNED
 | SMALLINT
+| SMALLSERIAL
+| SERIAL
+| BIGSERIAL
 | SPATIAL
 | START
 | STATUS

@@ -2124,3 +2124,18 @@ func BenchmarkParse3(b *testing.B) {
 		}
 	}
 }
+
+func TestParsePGType(t *testing.T) {
+	stmt, err := ParseStrictDDL("create table t_test(id serial not null, age smallserial, bigage bigserial);")
+	if err != nil {
+		t.Fatal(err)
+	}
+	ddl, ok := stmt.(*DDL)
+	if !ok {
+		t.Fatal("no ddl stmt")
+	}
+	for _, col := range ddl.TableSpec.Columns {
+		t.Log(col.Name.String())
+		t.Log(col.Type)
+	}
+}

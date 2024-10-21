@@ -25,8 +25,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/xwb1989/sqlparser/dependency/querypb"
-	"github.com/xwb1989/sqlparser/dependency/sqltypes"
+	"github.com/ltfred/sqlparser/dependency/querypb"
+	"github.com/ltfred/sqlparser/dependency/sqltypes"
 )
 
 // Instructions for creating new types: If a type
@@ -1005,6 +1005,11 @@ func (ct *ColumnType) SQLType() querypb.Type {
 		}
 		return sqltypes.Int8
 	case keywordStrings[SMALLINT]:
+		if ct.Unsigned {
+			return sqltypes.Uint16
+		}
+		return sqltypes.Int16
+	case keywordStrings[SMALLSERIAL]:
 		if ct.Unsigned {
 			return sqltypes.Uint16
 		}

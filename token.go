@@ -20,10 +20,9 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/ltfred/sqlparser/dependency/bytes2"
+	"github.com/ltfred/sqlparser/dependency/sqltypes"
 	"io"
-
-	"github.com/xwb1989/sqlparser/dependency/bytes2"
-	"github.com/xwb1989/sqlparser/dependency/sqltypes"
 )
 
 const (
@@ -321,6 +320,9 @@ var keywords = map[string]int{
 	"signal":              UNUSED,
 	"signed":              SIGNED,
 	"smallint":            SMALLINT,
+	"smallserial":         SMALLSERIAL,
+	"serial":              SERIAL,
+	"bigserial":           BIGSERIAL,
 	"spatial":             SPATIAL,
 	"specific":            UNUSED,
 	"sql":                 UNUSED,
